@@ -3,12 +3,16 @@ MiteDB
 
 
 Summary
+=======
+
 A simple key value store which provides
     consistency
     failure recovery
     fast reads and writes. 
   
 Design and implementation
+=========================
+
 These three priorities have conflicting optimizations. For instance, the data can be consistent if the server always reads from and writes to disk, but this will cause slow read and write speeds. On the other hand, we can have fast reads and writes by implementing cache on the client side, but doing so will eliminate consistency because updates from other clients will not be detected. Therefore, we need to balance between consistencies, failure recovery, and fast reads and writes. The server needs to eventually write every key-value pair to disk. Since disk accesses are very expensive, 
 we implement a B-tree to index the data stored into the disk. B-trees are balanced trees that are optimized for situations when part or all of the tree must be maintained in secondary storage such as a magnetic disk. Since disk accesses are slow, b-tree tries to minimize the number of disk accesses. 
 
